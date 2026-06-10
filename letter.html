@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hey Babe!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Pyidaungsu&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f1f1f1;
+            margin: 0;
+            font-family: 'Indie Flower', cursive;
+            padding: 20px;
+        }
+
+        .header-text {
+            font-size: clamp(30px, 8vw, 50px);
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        .footer-text {
+            font-size: clamp(20px, 5vw, 35px);
+            margin-top: 40px;
+            color: #333;
+        }
+
+        
+        .envelope-wrapper {
+            position: relative;
+            cursor: pointer;
+            width: clamp(300px, 90vw, 450px);
+            height: clamp(220px, 60vw, 300px);
+            transition: margin-top 0.5s;
+        }
+
+        .envelope {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background-color: #f0707c;
+            border-radius: 10px;
+            z-index: 1;
+        }
+
+        /* စာအိတ်အဖုံး */
+        .envelope::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            z-index: 4;
+            border-top: clamp(100px, 33vw, 160px) solid #f68c96; 
+            border-left: clamp(140px, 45vw, 225px) solid transparent;
+            border-right: clamp(140px, 45vw, 225px) solid transparent;
+            transform-origin: top;
+            transition: transform 0.4s ease;
+        }
+
+        .envelope::after {
+            content: "";
+            position: absolute;
+            z-index: 3;
+            width: 0;
+            height: 0;
+            border-top: clamp(90px, 30vw, 150px) solid transparent;
+            border-left: clamp(140px, 45vw, 225px) solid #f6a1aa;
+            border-right: clamp(140px, 45vw, 225px) solid #f6a1aa;
+            border-bottom: clamp(90px, 30vw, 150px) solid #f6a1aa;
+            bottom: 0;
+            border-radius: 0 0 10px 10px;
+        }
+
+        .heart {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: clamp(40px, 10vw, 60px);
+            height: clamp(40px, 10vw, 60px);
+            background-color: #d12d3c;
+            z-index: 5;
+            clip-path: path('M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402m5.726-20.583c-2.203 0-4.446 1.042-5.726 3.238-1.285-2.206-3.522-3.248-5.719-3.248-3.183 0-6.281 2.187-6.281 6.191 0 4.661 5.571 9.429 12 15.809 6.43-6.38 12-11.147 12-15.809 0-4.011-3.095-6.181-6.274-6.181');
+            transition: opacity 0.3s;
+        }
+
+        .letter {
+            position: absolute;
+            bottom: 10px;
+            left: 5%;
+            width: 90%;
+            height: 90%;
+            background: white;
+            padding: clamp(15px, 4vw, 25px);
+            box-sizing: border-box;
+            z-index: 2;
+            transition: transform 0.5s ease, height 0.5s ease, bottom 0.5s ease;
+            text-align: center;
+            border-radius: 5px;
+            font-family: 'Pyidaungsu', serif;
+            overflow-y: auto; 
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        .letter p {
+            font-size: clamp(14px, 3vw, 18px);
+            line-height: 1.6;
+            color: #444;
+            margin: clamp(10px, 2vw, 15px) 0;
+            text-align: left;
+        }
+
+        .letter hr {
+            border: 0.5px solid #eee;
+            margin: clamp(10px, 2vw, 15px) 0;
+            width: 100%;
+        }
+
+        .envelope-wrapper.open {
+            margin-top: clamp(80px, 20vw, 150px);
+        }
+
+        .envelope-wrapper.open .envelope::before {
+            transform: rotateX(180deg);
+            z-index: 1;
+        }
+
+        .envelope-wrapper.open .letter {
+            transform: translateY(clamp(-150px, -40vw, -220px));
+            z-index: 4;
+            height: clamp(280px, 70vw, 400px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            bottom: auto;
+        }
+
+        .envelope-wrapper.open .heart {
+            opacity: 0;
+        }
+
+       
+        @media (max-width: 500px) {
+            .envelope-wrapper {
+                width: 100%;
+                height: auto;
+                aspect-ratio: 1.5;
+                max-width: 320px;
+            }
+            
+            .letter p {
+                text-align: left;
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header-text">hey Shun!</div>
+
+    <div class="envelope-wrapper" onclick="toggleLetter()">
+        <div class="envelope">
+            <div class="heart"></div>
+            <div class="letter">
+                <hr>
+                <p>&nbsp;&nbsp;&nbsp;Happy 22nd Birthday ပါဗျ။ ဒီနေ့တစ်ရက်လုံးအများကြီးပျော်ရပါစေ အခုလာမယ့်တစ်နှစ်လုံးမှာလဲကျန်းမာ‌ရေးအပြင် အစစအရာရာမှာ အကောင်းတွေနဲ့ပဲကြုံရနေပါစေ ။ ဘာပဲလုပ်လုပ် ခလုတ်မထိ ဆူးမငြိပါစေနဲ့ ။ အမြဲတမ်းလဲ အပြုံးတွေနဲ့ပြည့်‌နေနိုင်ပါစေ‌နော် ။ ပြီးတော့ လာမယ့်ဖြေရမယ့် JLPT လဲ All A ရအောင်ဖြေနိုင်ပါစေ။ ဖြေနိုင်မှာပါ ရွှန်းလုပ်နိုင်မှာကိုယ်သိတယ် ဖိုက်တင်းနော် ။ ပြီးတော့ နေပူပူမိုးရွာရွာ မပျင်းပဲနဲ့ ထီးဆောင်း‌ေနာ် နေမကောင်းဖြစ်လွယ်လို့။</p>
+                <p>&nbsp;&nbsp;&nbsp;ဒီနေ့တရက်တော့ကန်တင်း မလာဖြစ်ဖို့များပါတယ် ။ မြင်ရင်ခံနိုင်မယ်မထင်လို့ ။ အရင်နှစ်တွေလက်ဆောင်တွေပေး အတူရှိခဲ့ပေမယ့် ဒီနှစ်အဲ့လိုမရ‌တော့တာတော့ စိတ်မကောင်းဖြစ်မိတယ် ။ အင်း... ဒါပါပဲ ရင်ဘတ်တွေအောင့်ပြီး ပူစပ်ရတဲ့ထိ လွမ်းရသလို တကယ်အများကြီးလဲချစ်ရပါတယ် ။ တခုခုဆို ဆက်သွယ်လို့ရပါတယ် အပြေးလာခဲ့မှာမို့။</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-text">you've got new emails</div>
+
+    <script>
+        function toggleLetter() {
+            document.querySelector('.envelope-wrapper').classList.toggle('open');
+        }
+    </script>
+
+</body>
+</html>
